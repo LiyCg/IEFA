@@ -2,6 +2,7 @@
 src/disentanglement/wandb/
 src/disentanglement/src/
 src/disentanglement/ckpts/
+src/FaceMEO/openai_wrapper.py
 
 conda_env/
 

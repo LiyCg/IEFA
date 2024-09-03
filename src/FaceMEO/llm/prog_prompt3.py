@@ -1,6 +1,8 @@
-from motion_io import load_motion, save_motion
+from motion_io import Motion_DB
 from motion import FacialMotion
 
+# initialize motion DB
+db = Motion_DB()
 # the person is talking. Make a face when someone won a lottery in the middle of the sequence. 
 def face_win_lottery():
     # initialize motion(only once for saving "motion_1")
@@ -21,8 +23,10 @@ def face_win_lottery():
     motion_1.activate_blendshape() # retrieves all set motion and converts into expression code to finally deconde into facial animation 
     
     # save motion
-    save_motion("motion_1")
+    db.save_motion(motion_1, "motion_1")
 
+# initialize motion DB
+db = Motion_DB()
 # The person is talking. Add a brief cheek puff at frame 35. 
 def cheeck_puff():
     # initialize motion
@@ -47,8 +51,10 @@ def cheeck_puff():
     motion_1.activate_blendshape()
     
     # save motion
-    save_motion("motion_1")
+    db.save_motion(motion_1, "motion_1")
 
+# initialize motion DB
+db = Motion_DB()
 # The person is talking. Add a sharp brow furrow and narrow the eyes starting from almost the end of the motion (to show deep concentration or seriousness). 
 def brow_furrow_eye_narrow():
     # initialize motion
@@ -72,9 +78,10 @@ def brow_furrow_eye_narrow():
     motion_1.activate_blendshape()
     
     # save motion
-    save_motion("motion_1")
-    
+    db.save_motion(motion_1, "motion_1")
 
+# initialize motion DB
+db = Motion_DB()
 # The person is talking. The person begins to smile with only left corner of mouth. 
 def smile_left():
     # initialize motion
@@ -96,12 +103,13 @@ def smile_left():
     motion_1.activate_blendshape()
     
     # save motion
-    save_motion("motion_1")
+    db.save_motion(motion_1, "motion_1")
 
+# assume there's already initialized motion db
 # the person is talking with happy face starting from in middle of the sequence. Make happy face faster.
 def smile_faster():
     # load previous motion
-    motion_1 = load_motion("motion_1") # changing speed of some expression should mean the expression does exist, so assume there's been already a first editing.
+    motion_1 = db.load_motion("motion_1") # changing speed of some expression should mean the expression does exist, so assume there's been already a first editing.
     motion_2 = FacialMotion(animation_seq=motion_1.output_animation_seq)
     
     # the loaded motion is that the person is talking with happy face starting from in middle of the sequence. 
@@ -118,12 +126,14 @@ def smile_faster():
     motion_2.activate_blendshape()
 
     # save motion
-    save_motion(motion_2, "motion_2")
+    db.save_motion(motion_2, "motion_2")
 
+# initialize motion DB
+db = Motion_DB()
 # the person is talking with happy face starting from in middle of the sequence. Change back to neutral abrutly.
 def back_to_neutral_faster():
     # load previous motion
-    motion_1 = load_motion("motion_1") # changing speed of some expression should mean the expression does exist, so assume there's been already a first editing.
+    motion_1 = db.load_motion("motion_1") # changing speed of some expression should mean the expression does exist, so assume there's been already a first editing.
     motion_2 = FacialMotion(animation_seq=motion_1.output_animation_seq)
     
     # the loaded motion is that the person is talking with happy face starting from in middle of the sequence. 
@@ -140,12 +150,14 @@ def back_to_neutral_faster():
     motion_2.activate_blendshape()
 
     # save motion
-    save_motion(motion_2, "motion_2")    
+    db.save_motion(motion_2, "motion_2")    
 
+# initialize motion DB
+db = Motion_DB()
 # The person is talking with closed eyes from the middle of the sequence. When eyes are fully shut, start smirking only on the left side  
 def smile_left():
     # load previous motion
-    motion_1 = load_motion("motion_1")
+    motion_1 = db.load_motion("motion_1")
     motion_2 = FacialMotion(animation_seq=motion_1.output_animation_seq)
     
     # the loaded motion is that the person is talking with closed eyes from the middle of the sequence. 
@@ -164,8 +176,10 @@ def smile_left():
     motion_2.activate_blendshape() 
     
     # save motion 
-    save_motion("motion_1") 
-    
+    db.save_motion(motion_2, "motion_2") 
+
+# initialize motion DB
+db = Motion_DB()
 # The person is talking. As you talk, widen your eyes more.    
 def widen_eyes_more():
     # initialize motion
@@ -190,8 +204,10 @@ def widen_eyes_more():
     motion_1.activate_blendshape() 
     
     # save motion 
-    save_motion("motion_1") 
+    db.save_motion(motion_1, "motion_1") 
 
+# initialize motion DB
+db = Motion_DB()
 # The person is talking. Switch to a sad expression and pause it for a second in the middle of the sequence.
 def sad_expression():
     # initialize motion
@@ -215,8 +231,10 @@ def sad_expression():
     motion_1.activate_blendshape()
     
     # save motion
-    save_motion("motion_1")
-    
+    db.save_motion(motion_1, "motion_1")
+
+# initialize motion DB
+db = Motion_DB()
 # The person is talking. Add a surprised expression followed by relaxation towards the end of the sequence.
 def surprise_then_relax():
     # initialize motion
@@ -237,8 +255,10 @@ def surprise_then_relax():
     motion_1.activate_blendshape()
     
     # save motion
-    save_motion("motion_1")
-    
+    db.save_motion(motion_1, "motion_1")
+
+# initialize motion DB
+db = Motion_DB()
 # The person is talking. Add a focused gaze by narrowing the eyes at frame 60.
 def focused_gaze():
     # initialize motion
@@ -259,4 +279,4 @@ def focused_gaze():
     motion_1.activate_blendshape()
     
     # save motion
-    save_motion("motion_1")
+    db.save_motion(motion_1, "motion_1")

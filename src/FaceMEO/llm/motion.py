@@ -109,10 +109,11 @@ class FacialMotion():
     def __init__(self, animation_seq : np.array = None):
         
         self.cur_activated = []
-        if animation_seq:
+        # import pdb;pdb.set_trace()
+        if isinstance(animation_seq, np.ndarray):
             self.source_animation_seq = animation_seq
         else:
-            self.source_animation_seq = np.zeros((110,53), dtype=np.float64)
+            self.source_animation_seq = np.zeros((110,53), dtype=np.float64) # currently set like this
         self.output_animation_seq = None
         
         ## get seq length
@@ -324,7 +325,7 @@ class FacialMotion():
                 break  
             t = i / (num_back + 1)
             output_sequence[end_idx + i] = t * (back_speed_frame) + (1-t) * (output_sequence[end_idx])
-        import pdb;pdb.set_trace()    
+        # import pdb;pdb.set_trace()    
         return output_sequence
 
     def activate_blendshape(self):
@@ -332,11 +333,6 @@ class FacialMotion():
         generate final edited blendshape sequence and convert it to vertex animation to finally decode into full animation 
         """
         self.output_animation_seq = self.insert_keyframe()
-        # vtx_anim_seq = bshp_2_vtx(self.output_animation_seq)
-        # direct_decoding()
-        
-        
-
 
 if __name__ == "__main__":
     

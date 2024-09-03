@@ -32,7 +32,7 @@ def add_common_options(parser):
     group.add_argument("--gemini_file", type=str, default='m003_image_gemini_0117.pickle', help="Image to text caption. Question: Please describe the facial expressions and emotions of the person.")
     # Directory
     #group.add_argument("--root_dir", type=str, default='../../', help="sys path")
-    group.add_argument("--root_dir", type=str, default='/input/inyup/TeTEC/faceClip/', help="sys path")
+    group.add_argument("--root_dir", type=str, default='/input/inyup/IEFA/', help="sys path")
     group.add_argument("--feature_dir", type=str, default='data/feature', help="Path to feature files")
     group.add_argument("--save_vtx_dir", type=str, default='data/test/result/vtx', help="save directory for the output flame parameter")
     group.add_argument("--save_video_dir", type=str, default='data/test/result/qualitative_render/IEFA', help="save directory for the output animation")
@@ -41,18 +41,17 @@ def add_common_options(parser):
 
 
 ## TODO
-# def add_IEFA_options(parser):
+def add_IEFA_options(parser):
     
-#     group = parser.add_argument_group('common')
-    
-#     group.add_argument("--device", default=1, type=int, help="Device id to use. 0: cpu, 1 ~ : gpu")
-#     group.add_argument("--cuda", default=True, type=bool, help="Use cuda device, otherwise use CPU.")
-#     group.add_argument("--seed", default=10, type=int, help="For fixing random seed.")
-#     group.add_argument("--batch_size", default=1, type=int, help="Batch size during training.")
+    group = parser.add_argument_group('IEFA')
+    # group.add_argument("--model_num", type=str, default='ict_vtx_dtw_10000_03_wcs1', help="Model name.")
+    # group.add_argument("--save_dir", type=str, default='src/disentanglement/ckpts', help="Path that has checkpoints and results.")
+    group.add_argument("--con_data_root_dir", type=str, default='/input/inyup/IEFA/data/feature', help="Path that has angry anchored dtw dataset")
+    # group.add_argument("--vtx_dtw_path", type=str, default='ict_dataset_m003_vtx_dtw_nolevel_woneut_03.pickle', help="Actual dtw vtx data file name")
 
 def add_disentanglement(parser): # Stage 1
     group = parser.add_argument_group('disentanglement')
-    group.add_argument("--model_num", type=str, default='ict_default', help="Model name.")
+    group.add_argument("--model_num", type=str, default='ict_vtx_dtw_10000_03_wcs1', help="Model name.")
     group.add_argument("-e", "--epochs", type=int, default=10000, help="number of epochs")
     group.add_argument("--lr", default=1e-5, type=float, help="Learning rate.")
 
@@ -67,9 +66,9 @@ def add_disentanglement(parser): # Stage 1
     group.add_argument("--w_con", default=0.001, type=float, help="Loss weight for content embedding")
     group.add_argument("--w_tpl", default=0.001, type=float, help="Loss weight for expression triplet loss")
     # dir
-    group.add_argument("--save_dir", type=str, default='/source/inyup/TeTEC/faceClip/src/disentanglement/ckpts/disentanglement', help="Path to save checkpoints and results.")
-    group.add_argument("--save_tb_dir", type=str, default='src/disentanglement/ckpts/disentanglement/tensorboard', help="Path to save logs.")
-    group.add_argument("--vtx_dtw_path", type=str, default='data/feature/dataset_m003_vtx_dtw.pickle', help="time warped vtx animation data path")
+    group.add_argument("--save_dir", type=str, default='src/disentanglement/ckpts', help="Path to save checkpoints and results.")
+    group.add_argument("--save_tb_dir", type=str, default='src/disentanglement/ckpts/', help="Path to save logs.")
+    group.add_argument("--vtx_dtw_path", type=str, default='ict_dataset_m003_bshp_dtw_nolevel.pickle', help="time warped vtx animation data path")
 
 def add_a2s_options(parser): # Stage 2
     group = parser.add_argument_group('a2s_model')
@@ -128,6 +127,7 @@ def a2s_args():
 def IEFA_args():
     parser = ArgumentParser()
     add_common_options(parser)
-    # add_IEFA_options(parser)
+    add_disentanglement(parser)
+    add_IEFA_options(parser)
     opt = parser.parse_args()
     return opt

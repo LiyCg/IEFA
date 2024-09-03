@@ -4,6 +4,7 @@ import os
 import torch
 import wandb
 from torch.utils.tensorboard import SummaryWriter
+sys.path.append('./src/')
 from disentanglement import data_manager
 from disentanglement.model_AE import AutoEncoder
 from parser_util import disentangle_args

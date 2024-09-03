@@ -21,7 +21,7 @@ from datetime import datetime
 from parser_util import disentangle_args
 from disentanglement.train import Runner
 from render import render_from_vertex
-sys.path.append('./../data/livelink_MEAD')
+sys.path.append('./data/livelink_MEAD')
 from util import v_render_sequence_meshes, mux_audio_video
 
 ## TODO 
@@ -36,7 +36,7 @@ def direct_decoding(hparams, motion_num, con_vtx_anim_seq, exp_vtx_anim_seq, aud
         
         vtx_path = f'{hparams.root_dir + hparams.save_vtx_dir}/{filename}_dis_{hparams.model_num}.npy'
         vid_path = f'{hparams.root_dir + hparams.save_video_dir}/{filename}_dis_{hparams.model_num}.mp4'
-
+        
         vtx_con = torch.from_numpy(con_vtx_anim_seq).to(device).float()
         vtx_exp = torch.from_numpy(exp_vtx_anim_seq).to(device).float()
         pred_vtx = runner.autoencoder.reconstruct([vtx_con, vtx_exp])

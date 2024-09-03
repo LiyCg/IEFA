@@ -19,7 +19,7 @@ import moviepy.editor as mp
 from IPython.display import Video
 
 sys.path.append('./../')
-sys.path.append('/input/inyup/TeTEC/faceClip/data/')
+sys.path.append('/input/inyup/IEFA/data/')
 from data_preprocess import save_frames
 
 
@@ -121,7 +121,7 @@ def v_render_sequence_meshes(Vs_path : np.array = None,
     
     # expression_parameters = np.load(expression_parameters_path)
     if face_model == None:
-        face_model = face_model_io.load_face_model('/source/inyup/TeTEC/ICT-FaceKit/FaceXModel')
+        face_model = face_model_io.load_face_model('/input/inyup/ICT-FaceKit/FaceXModel')
     
     frame_vertices = [] # [N, 53]
     Vs = np.load(Vs_path)
@@ -691,7 +691,7 @@ def concat_videos(vid1_paths : list, output_path : str):
 
 def bshp_2_vtx(bhsp_anim_seq : np.array = None, face_model = None):
     if face_model == None:
-        face_model = face_model_io.load_face_model('/input/inyup/TeTEC/ICT-FaceKit/FaceXModel')
+        face_model = face_model_io.load_face_model('/input/inyup/ICT-FaceKit/FaceXModel')
 
     vertex_animation = []
     for frame_idx, parameter in enumerate(bhsp_anim_seq):
@@ -705,8 +705,10 @@ def bshp_2_vtx(bhsp_anim_seq : np.array = None, face_model = None):
         vertex_animation.append(vs)
     
     vertex_animation = np.array(vertex_animation)
+    # import pdb;pdb.set_trace()
+    vertex_animation = vertex_animation[:,:9409,:].reshape(-1,28227)
     
-    return vertex_animation 
+    return vertex_animation
 
 
 

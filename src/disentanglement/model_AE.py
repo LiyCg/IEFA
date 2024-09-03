@@ -179,13 +179,18 @@ class AutoEncoder(nn.Module):
         # import pdb;pdb.set_trace()
         template = self.template.unsqueeze(0) # (1, V*3)
         template = template.unsqueeze(1) # (1, 1, V*3)
-
+        # import pdb;pdb.set_trace()
         vtx_diff = vtx[0]-template
         vtx_exp_diff = vtx[1]-template
 
         c1 = self.con_encoder(vtx_diff) # (1, Fn, feature size)
         e1 = self.exp_encoder(vtx_exp_diff) # (1, Fn, feature size)
 
+        if c1.shape[1] > e1.shape[1]:
+            c1 = c1[:,:e1.shape[1],:]
+        elif c1.shape[1] < e1.shape[1]:
+            e1 = e1[:,:c1.shape[1],:]
+            
         vtx_recon = self.decoder(c1, e1) + template
 
         return vtx_recon
